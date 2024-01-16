@@ -33,22 +33,16 @@ int main()
     prefix[0].x = 0;
     prefix[0].id = 0;
     sort(prefix, prefix + n + 1,compare);
-    /*for(int i = 0; i <= n; i++)
-    {
-        cout<<prefix[i].x<<" "<<prefix[i].id<<endl;
-    }*/
-    int lmax = 0, dau = prefix[0].id;
 
-    for(int i=1; i <= n; i++)
+    int lmax = 0, dau = prefix[0].id;
+    prefix[n + 1].x = LONG_MAX, prefix[n + 1].id = n + 1;
+    for(int i = 1; i <= n + 1; i++)
     {
         if(prefix[i].x != prefix[i - 1].x)
         {
-            lmax = max(lmax, prefix[i - 1].id - dau);
+            lmax = max(lmax, prefix[i- 1].id - dau);
             dau = prefix[i].id;
         }
-
-
-
     }
 
     cout<< lmax;
