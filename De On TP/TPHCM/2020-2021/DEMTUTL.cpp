@@ -9,12 +9,13 @@ void inoutput()
     freopen("DEMTUTL.INP", "r", stdin);
     freopen("DEMTUTL.OUT", "w", stdout);
 }
-int a[256];
 
 bool check1(string n)
 {
+    int a[256] = {};
+
     memset(a, 0, sizeof(a));
-    for(int i = 0; i < n.size(); i++)
+    for(int i = 0; i < (int)n.size(); i++)
     {
         if(isalpha(n[i])== 1) n[i] += 32;
         a[(int)n[i]]++;
@@ -31,6 +32,18 @@ bool check1(string n)
     }
     return false;
 }
+bool findcap(string a, string b)
+{
+    if(a.size() != b.size()) return 0;
+    for(int i = 0; i < b.size(); i++)
+    {
+        if(isalpha(a[i]) == 1) a[i] += 32;
+        if(isalpha(b[i]) == 1) b[i] += 32;
+        if(a[i] != b[i]) return 0;
+    }
+    return 1;
+
+}
 
 string allword = "";
 int demtu = 0;
@@ -38,54 +51,77 @@ void solve(string s)
 {
     string any = "" ;
     int start = 0;
-    for(int i = 0; i < s.size(); i++)
+    for(int i = 0; i < (int)s.size(); i++)
     {
-        if(i == s.size() -1 )
-        {
-            any += s[i];
-
-
-        }
+        
         if(s[i] == ' ' || i == s.size()- 1)
         {
-            if(s[i - 1] != ' ')
+            while(any[0] == ' ')
             {
-                start = i - 1;
+                any.erase(any.begin() + 1);
             }
-             //check loai 1
-             //cout<<any<<" "<<i<<endl;
-            if(check1(any))
+            while(any[any.size() - 1] == ' ')
             {
+                any.erase(any.begin() + any.size());
+            }
+            if(i == s.size() -1 )
+            {
+                any += s[i];
+
+
+            }
+
+             //check loai 1
+            //cout<<any<<" "<<check1(any)<<endl;
+
+            if(check1(any) == true)
+            {
+
+                //cout<<any<<endl;
                 //cout<<any<<endl;
                 allword += any;
-                allword.push_back(' ');
+                allword += " ";
                 demtu++;
+
             }
             string temp = "";
-            if(start - any.size() >= 0)
+            string goc = "";
+            //cout<< start - (int) any.size()<<" "<<i<<endl;
+
+
+            if(start - (int) any.size() >= 0)
             {
-                for(int j = start - any.size() + 1; j <= start; j++)
+                //cout<<"Entered "<<start<<endl;
+                for(int j = start - 1; j >= start - (int)any.size(); --j )
                 {
-                    temp = temp + s[j];
+                    goc = s[j] + goc;
+                    if(isalpha(s[j]) == 1) s[j] += 32;
+                    temp = s[j] + temp;
+
+
                 }
 
             }
-            cout<<start<<" "<<temp<<endl;
+            //cout<<temp<<endl;
 
 
 
-            cout<<temp<<endl;
-            if(temp.find(any) != -1) //check loai 2
+            //cout<<temp<<endl;
+            if(findcap(temp, any) == 1) //check loai 2
             {
                 //cout<<any<<" "<<temp<<endl;
 
-                allword += any;
+                allword += goc;
                 allword.push_back(' ');
-                allword += temp;
+                allword += any;
                 allword.push_back(' ');
                 demtu++;
             }
             any = "";
+            if(s[i - 1] != ' ')
+            {
+                start = i;
+            }
             continue;
         }
         any += s[i];
