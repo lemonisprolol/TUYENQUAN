@@ -55,34 +55,53 @@ int main()
     if(m % 2 != 0) temp1++;
     if(n % 2 != 0) temp2++;
     cout<<(temp1 * temp2)/ 4<<"\n";
-    int sodem = 0;
-
-
-    for(int i = 1; i <=n; i += 2)
+    for(int j = 1; j <= n; j += 2)
     {
-        for(int j = 1; j <= m; j += 2)
+        for(int i = 1; i <= m; i+= 2)
         {
-            int filler = a[j][i] + 1;
-            if(j + 2 > m && m % 2 == 0)
+            /*if(i + 2 > m)
             {
-                filler = c[j - 1][i] + 1;
+                for(int x = i; x >= i - 1; x--)
+                {
+                    for(int y = j; y <= j + 1; j++)
+                    {
+                        a[x][y] = a[i - 1][j] + 1;
+                    }
+                }
+            }
+            if(j + 2 > n)
+            {
+                for(int x = i; x >= i - 1; x--)
+                {
+                    for(int y = j; y <= j + 1; j++)
+                    {
+                        a[x][y] = max(a[i][j - 1], a[i - 1][j]) + 1;
+                    }
+                }
+            } */
+            if(i + 2 <= m + 1 && j + 2 <= n + 1)
+            {
+                cerr<<i<<" "<<j<<endl;
+                cerr<<a[i][j]<<endl;
+
                 for(int x = i; x <= i + 2 - 1; x++)
                 {
-                    c[j - 1][x]++;
+                    for(int y = j; y <= j + 2 - 1; y++)
+                    {
+
+                        c[y][x] = a[i][j] + 1;
+
+                    }
                 }
             }
-            for(int x = i; x <= i + 2 - 1; x++)
-            {
-                for(int y = j; y <= j + 2 - 1; y++)
-                {
-                    if(y > m || x > n) continue;
-                    c[y][x] = filler;
-                }
-            }
+            cout<<c[i][j]<<" ";
+            //cerr<<"still working";
 
         }
-
     }
+
+
+
 
 
 
