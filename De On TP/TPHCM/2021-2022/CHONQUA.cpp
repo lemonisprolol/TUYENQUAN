@@ -29,8 +29,8 @@ int main()
 
         }
     }
-    k--;
-    cout<<k<<endl;
+    k-=2;
+    //cout<<k<<endl;
     for(int i = 1; i <= d; i++)
     {
         for(int j = 1; j <= r; j++)
