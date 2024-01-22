@@ -25,6 +25,7 @@ int main()
     inouput();
     long long n;
     cin >> n;
+    n++;
     while(!check(n))
     {
         n++;
