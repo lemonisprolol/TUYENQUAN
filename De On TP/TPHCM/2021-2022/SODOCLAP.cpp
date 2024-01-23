@@ -9,26 +9,55 @@ void inouput()
     freopen("SODOCLAP.INP", "r", stdin);
     freopen("SODOCLAP.OUT", "w", stdout);
 }
-bool check(long long n)
+
+int a[100];
+char findandfill(string n, int position, bool cases, char x)
 {
-    map<int, int> d;
-    while(n > 0)
+
+
+    for(int i = (int) '0'; i <= (int)'9'; i++)
     {
-        d[n % 10]++;
-        if(d[n % 10] > 1) return 0;
-        n /= 10;
+        if(a[i] == 0)
+        {
+            if(cases == true)
+            {
+                if(x > (char) i)
+                {
+                    continue;
+                }
+            }
+            return (char)i;
+        }
     }
-    return 1;
+
 }
 int main()
 {
     inouput();
-    long long n;
+    string n;
     cin >> n;
-    n++;
-    while(!check(n))
+    int k_pos;
+    bool cases = true;
+    for(int i = 0; i < n.size(); i++)
     {
-        n++;
+        a[n[i]]++;
+        //cout<<a[n[i]]<<endl;
+        if(a[n[i]] == 2)
+        {
+            k_pos = i;
+            a[n[i]]--;
+            n[i] = findandfill(n, k_pos, cases, n[i]);
+            a[n[i]]++;
+            break;
+
+        }
+    }
+    cases = false;
+    for(int i = k_pos + 1; i < n.size(); i++)
+    {
+            n[i] = findandfill(n, k_pos, cases, n[i]);
+            a[n[i]]++;
+
     }
     cout<<n;
 
