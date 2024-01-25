@@ -9,6 +9,7 @@ struct timeatt
 };
 const int maxarr = 1e6 + 5;
 timeatt a[maxarr];
+long s[maxarr];
 int main()
 {
     iostream::sync_with_stdio(0);
@@ -31,28 +32,7 @@ int main()
     for(int i = 1; i <= n; i++)
     {
         //cout<<i<<" "<<a[i].one<<" "<<a[i].two<<endl;
-        if(i == n)
-        {
-            work += a[i].one;
-            continue;
-        }
-
-
-        if(a[i].one +  a[i + 1].one > a[i].two )
-        {
-
-            work += a[i].two;
-            //cout<<a[i].two<<" "<<work<<endl;
-
-            i++;
-
-        }
-        else
-        {
-            work += a[i].one;
-            //cout<<a[i].one<<" "<<work<<endl;
-
-        }
+        s[i] = min(s[])
 
     }
     cout<<work;
