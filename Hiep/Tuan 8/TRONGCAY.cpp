@@ -11,6 +11,11 @@ void inoutput()
 }
 const int maxarr = 1e3 + 5;
 long a[maxarr];
+long c[maxarr];
+bool comp(long a, long b)
+{
+    return a > b;
+}
 int main()
 {
     inoutput();
@@ -19,28 +24,41 @@ int main()
     for(int i = 1; i <= n; i++)
     {
         cin >> a[i];
+        c[i] = a[i];
     }
     long ks = a[k];
+    a[k] = INT_MAX;
     sort(a + 1, a + n + 1);
-
-    for(int i = 1; i <= n; i++)
+    for(int i = n + 1; i > k; i--)
     {
-        if(a[i] == ks && a[k] > ks && a[i + 1] != ks)
-        {
-            swap(a[k], a[i]);
-        }
-        if(a[i] == ks && a[k] < ks && a[i - 1] != ks)
-        {
-            swap(a[k], a[i]);
-        }
+        a[i] = a[i - 1];
+
     }
+    swap(a[n + 1], a[k]);
+    a[k] = ks;
+
+
+    long long ans1 = 0;
+    for(int i = 2; i <= n; i++)
+    {
+
+        ans1 += abs(a[i] - a[i - 1]);
+    }
+    int j = 0;
+    sort( c+ 1, c + n + 1, comp);
+    for(int i = 0; i < k; i++)
+    {
+        c[i] = c[i + 1];
+    }
+    swap(c[0], c[k]);
     long long ans = 0;
     for(int i = 2; i <= n; i++)
     {
-        //cout<<a[i]<<" ";
-        ans += abs(a[i] - a[i - 1]);
+        ans += abs(c[i] - c[i - 1]);
     }
+
+
+    cout<<min(ans1, ans);
     //cout<<"\n";
-    cout << ans;
     return 0;
 }
