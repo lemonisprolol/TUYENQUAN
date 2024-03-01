@@ -11,7 +11,6 @@ bool check(int i, int j)
     for(int r = 0; r < 4; r++)
     {
         if(a[i + x[r]][j + y[r]] == 1) return false;
-        cout<<a[i + x[r]][j + y[r]]<<" "<<i + x[r]<<" "<<j + y[r]<<endl;
     }
     return true;
 }
@@ -36,7 +35,13 @@ int main()
     {
         for(int j = 1 ;j <= n; j++)
         {
-            if(check(i, j)) ans++;
+            if(a[i][j] == 1)
+            {
+                if(check(i, j))
+                {
+                    ans++;
+                }
+            }
 
         }
     }
