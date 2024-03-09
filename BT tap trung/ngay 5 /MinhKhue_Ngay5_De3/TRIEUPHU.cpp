@@ -30,7 +30,7 @@ int main()
         ai++;
     }
     sort(a + 1, a + ai );
-    cout<<ai<<endl;
+    cout<<ai - 1<<endl;
     for(int i = 1; i <= ai; i++)
     {
         cout<<a[i]<<" ";
