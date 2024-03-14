@@ -1,51 +1,41 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-
-const int MOD = 1e9 + 7;
-const int MAX = 1e5 + 5;
-typedef long long ll;
-
-ll dp[MAX][55], fact[MAX], inv[MAX], a[MAX];
-
-ll power(ll a, ll b) {
-    ll res = 1;
-    while (b > 0) {
-        if (b & 1) res = res * a % MOD;
-        a = a * a % MOD;
-        b >>= 1;
-    }
-    return res;
+const int r=1e9+7;
+long long t=1;
+const int maxarr=1e5+1;
+long long gt[maxarr];
+long long lt(long long a,long long n)
+{
+    if(n==0)
+        return 1;
+    t=lt(a,n/2);
+    t=((t%r)*(t%r))%r;
+    if(n%2==0)
+        return t;
+    return ((t%r)*(a%r))%r;
 }
-
-ll C(int n, int k) {
-    if (k > n || k < 0) return 0;
-    return fact[n] * inv[k] % MOD * inv[n - k] % MOD;
+long long th(long long k,long long n)
+{
+    long long B=gt[k]*gt[n-k];
+    long long s=(gt[n]*lt(B,r-2)%r);
+    return s;
 }
-
-int main() {
-    ios_base::sync_with_stdio(0); cin.tie(0);
-    freopen("XOSO.INP", "r", stdin);
-    freopen("XOSO.OUT", "w", stdout);
-
-    int n, k; cin >> n >> k;
-    for (int i = 1; i <= n; i++) cin >> a[i];
-    sort(a + 1, a + n + 1);
-
-    fact[0] = inv[0] = 1;
-    for (int i = 1; i <= n; i++) {
-        fact[i] = fact[i - 1] * i % MOD;
-        inv[i] = power(fact[i], MOD - 2);
-    }
-
-    for (int i = 0; i <= n; i++) dp[i][0] = 1;
-    for (int i = 1; i <= n; i++)
-        for (int j = 1; j <= k; j++)
-            dp[i][j] = (dp[i - 1][j] + dp[i - 1][j - 1]) % MOD;
-
-    ll res = 0;
-    for (int i = k; i <= n; i++)
-        res = (res + a[i] * dp[i - 1][k - 1] % MOD) % MOD;
-
-    cout << res;
+int main()
+{
+    freopen("XOSO.inp","r",stdin);
+    freopen("XOSO.out","w",stdout);
+    int n,k;
+    cin>>n>>k;
+    int a[n+1];
+    for(int i=1;i<=n;i++)
+        cin>>a[i];
+    sort(a,a+n+1);
+    gt[0]=1;
+    for(int i=1;i<=n;i++)
+        gt[i]=(gt[i-1]*i)%r;
+    long long kq=0;
+    for(int i=k;i<=n;i++)
+        kq=(kq+a[i]*th(k-1,i-1))%r;
+    cout<<kq;
     return 0;
 }
