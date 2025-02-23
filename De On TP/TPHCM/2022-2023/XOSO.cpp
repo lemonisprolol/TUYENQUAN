@@ -29,7 +29,7 @@ int main()
     int a[n+1];
     for(int i=1;i<=n;i++)
         cin>>a[i];
-    sort(a,a+n+1);
+    sort(a + 1,a+n+1);
     gt[0]=1;
     for(int i=1;i<=n;i++)
         gt[i]=(gt[i-1]*i)%r;
